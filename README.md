@@ -1,0 +1,3 @@
+本專案只使用ESP32與SSD1306可以直接到Wokwi上面做測試
+先將照片丟進image2cpp轉成矩陣方式畫出照片，輪流顯示出來。
+因為ESP2記憶體有限無法將OpenData抓進晶片裡處理，所以用App Script幫忙抓取資料，ESP32每15分鐘Call一次App Script到OpenData上抓資料，抓下來並顯示出來!
