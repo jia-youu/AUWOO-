@@ -1,0 +1,21 @@
+function doGet() {
+  var url = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization=CWA-2045C302-468F-4C50-AA86-BE3A769B4B3A';
+  var targetId = "CAQ020"; 
+  
+  var response = UrlFetchApp.fetch(url);
+  var json = JSON.parse(response.getContentText());
+  var stations = json.records.Station;
+  
+  for (var i = 0; i < stations.length; i++) {
+    if (stations[i].StationId == targetId) {
+      var s = stations[i];
+      var temp = s.WeatherElement.AirTemperature;
+      var humd = s.WeatherElement.RelativeHumidity;
+      var time = s.ObsTime.DateTime.substring(0, 19); // 抓取前 19 位元的時間戳記
+      
+      // 回傳格式：溫度,濕度,時間
+      return ContentService.createTextOutput(temp + "," + humd + "," + time);
+    }
+  }
+  return ContentService.createTextOutput("N/A,N/A,N/A");
+}
